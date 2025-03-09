@@ -86,6 +86,7 @@ meta.json имеет структуру face_index/i.jpg : is_deepfake. Ключ
 
 
 
+![image](https://github.com/user-attachments/assets/66e4e9ec-611b-4576-b8ea-1e94bf21e128)
 
 
 
