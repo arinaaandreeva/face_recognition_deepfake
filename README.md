@@ -45,13 +45,17 @@ meta.json имеет структуру face_index/i.jpg : is_deepfake. Ключ
    
 ### Используемые модели
 
-   - Дообучить Resnet18 на новых данных (EER на тесте = 0.34)
-   - Построить модель с архитектурой CNN для сравнения реальных фото 
-   - Построить Siamese neural network  (EER на тесте = 0.306)
+| Модель                   | EER на тесте |
+|--------------------------|--------------|
+| ResNet18                 | 0.34         |
+| Siamese Neural Network   | 0.306        |
+| AdaFace                  | 0.25         |
+| CNN                      |              |
+
 Ошибка у данных моделей была значительно выше 
 ![alt text](https://github.com/arinaaandreeva/face_recognition_deepfake/blob/main/old_ipynb/img/EER_resnet.jpg)
       
-- AdaFace https://arxiv.org/pdf/2204.00964
+- AdaFace (EER на тесте = 0.25) https://arxiv.org/pdf/2204.00964
 
 **AdaFace** показывает высокое качество как на бенчмарках ![alt text](https://github.com/arinaaandreeva/face_recognition_deepfake/blob/main/old_ipynb/img/adaFace.PNG)
 
