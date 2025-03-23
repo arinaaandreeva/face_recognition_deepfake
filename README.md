@@ -45,10 +45,19 @@ meta.json имеет структуру face_index/i.jpg : is_deepfake. Ключ
    
 ### Используемые модели
 
-   1. Дообучить Resnet18 на новых данных
-   2. Построить модель с архитектурой CNN для сравнения реальных фото
-   3. Построить модель CNN+RNN для определния фэйка
-   4. Построить Siamese neural network
+   - Дообучить Resnet18 на новых данных (EER на тесте = 0.34)
+   - Построить модель с архитектурой CNN для сравнения реальных фото 
+   - Построить Siamese neural network  (EER на тесте = 0.306)
+Ошибка у данных моделей была значительно выше 
+![alt text](https://github.com/arinaaandreeva/face_recognition_deepfake/blob/main/old_ipynb/img/EER_resnet.jpg)
+      
+- AdaFace https://arxiv.org/pdf/2204.00964
+
+**AdaFace** показывает высокое качество как на бенчмарках ![alt text](https://github.com/arinaaandreeva/face_recognition_deepfake/blob/main/old_ipynb/img/adaFace.PNG)
+
+Так и на данном датасете AdaFace ошибка меньше, чем у других моделей
+![alt text](https://github.com/arinaaandreeva/face_recognition_deepfake/blob/main/old_ipynb/img/EER_adaFace.PNG)
+
   
 #### Метрика качества EER: 
           import numpy as np
@@ -67,7 +76,22 @@ meta.json имеет структуру face_index/i.jpg : is_deepfake. Ключ
               return eer
 
 
-Используется Triplet Loss: Для обучения модели на тройках данных (якорь, позитивный пример, негативный пример).
+### Loss Function 
+Adaptive margin был выбран, так как необходимо, чтобы функция потерь сохраняла баланс между задачей поиска дипфейков и сравнения фото. Было решено, что лучше всего баланс поддерживает adaptive margin.
+Adaptive Margin Loss динамически изменяет величину отступа (margin) в зависимости от степени сходства между примерами
+Основные особенности:
+
++ Величина margin автоматически регулируется на основе косинусного сходства. При низком сходстве margin увеличивается
++ Метод менее чувствителен к ошибочным меткам и аномальным данным.
+
+- Подбор оптимальных параметров для адаптации margin может быть затруднен
+- Для расчета адаптивного отступа требуется больше вычислительных ресурсов по сравнению с фиксированным.
+
+### Future work
+В задаче наблюдается дисбаланс классов (фэйковых фото значительно меньше), что ухудшает работу моделей
+Часто распределение результатов на тесте выглядело так
+![alt text](https://github.com/arinaaandreeva/face_recognition_deepfake/blob/main/old_ipynb/img/hist_test.jpg)
+Можно расширить датасет, сгенерировав дипфейки самим с помощью Roop, Ghost, Arc2Face, InstantID и тп
 
 ### Применение технологии:
 
@@ -85,7 +109,7 @@ meta.json имеет структуру face_index/i.jpg : is_deepfake. Ключ
 
 
 
-![image](https://github.com/user-attachments/assets/66e4e9ec-611b-4576-b8ea-1e94bf21e128)
+![alt text](https://github.com/arinaaandreeva/face_recognition_deepfake/blob/main/old_ipynb/img/mem.png)
 
 
 
